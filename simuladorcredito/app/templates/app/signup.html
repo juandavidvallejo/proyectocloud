@@ -1,0 +1,128 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+Registro
+{% endblock %}
+{% block css %}
+    <style type="text/css" media="screen">
+	.map_canvas { width: 550px; height: 300px; margin: 0 auto; margin-bottom: 10px; margin-top: 10px}
+	/* Credit to bootsnipp.com for the css for the color graph */
+	.colorgraph {
+	  height: 5px;
+	  border-top: 0;
+	  background: #c4e17f;
+	  border-radius: 5px;
+	  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	}
+    </style>
+{% endblock %}
+{% block content %}
+	<hr>
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                      <form role="form" action="" method="post">
+			{% csrf_token %}
+                              <h2>Porfavor Reg&iacute;strate <small>Lo creamos para ti.</small></h2>
+                              <hr class="colorgraph">
+				{% if errors %}
+				    {{ errors|escape }}
+				{% endif %}
+				{% if base_errors %}
+				    {{ base_errors|escape }}
+				{% endif %}
+                              <div class="form-group">
+                                      <input type="text" name="{{ baseform.username.name }}" id="{{ baseform.username.id_for_label }}" class="form-control input-lg" placeholder="Usuario" tabindex="3">
+                              </div>
+                              <div class="row">
+                                      <div class="col-xs-12 col-sm-6 col-md-6">
+                                              <div class="form-group">
+                                                      <input type="password" name="{{ baseform.password.name }}" id="{{ baseform.password.id_for_label  }}" class="form-control input-lg" placeholder="Password" tabindex="5">
+                                              </div>
+                                      </div>
+                                      <div class="col-xs-12 col-sm-6 col-md-6">
+                                              <div class="form-group">
+                                                      <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
+                                              </div>
+                                      </div>
+                              </div>
+                              <div class="form-group">
+                                      <input type="email" name="{{ form.email.name }}" id="{{ form.email.id_for_label }}" class="form-control input-lg" placeholder="{{ form.email.help_text }}" tabindex="4">
+                              </div>
+                              <div class="row">
+                                      <div class="col-xs-12 col-sm-6 col-md-6">
+                                              <div class="form-group">
+                                                <input type="text" name="{{ form.user_name.name }}" id="{{ form.user_name.id_for_label }}" class="form-control input-lg" placeholder="{{ form.user_name.help_text }}" tabindex="1">
+                                              </div>
+                                      </div>
+                                      <div class="col-xs-12 col-sm-6 col-md-6">
+                                              <div class="form-group">
+                                                      <input type="text" name="{{ form.last_name.name }}" id="{{ form.last_name.id_for_label }}" class="form-control input-lg" placeholder="{{ form.last_name.help_text }}" tabindex="2">
+                                              </div>
+                                      </div>
+                              </div>
+                              <div class="row">
+                                    
+                                      <div class="col-xs-8 col-sm-9 col-md-9">
+                                               By clicking <strong class="label label-primary">Register</strong>, you agree to the <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a> set out by this site, including our Cookie Use.
+                                      </div>
+                              </div>
+                              
+                              <hr class="colorgraph">
+                              <div class="row">
+                                      <div class="col-xs-12 col-md-6"><input type="submit" value="Registrarse" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
+                                      <div class="col-xs-12 col-md-6"><a href="{% url 'user_login' %}" class="btn btn-success btn-block btn-lg">Ingresar</a></div>
+                              </div>
+                      </form>
+              </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                              <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                                      <h4 class="modal-title" id="myModalLabel">T&eacute;rminos y condiciones de uso</h4>
+                              </div>
+                              <div class="modal-body">
+                                      <p class="small">Lea detenidamente estos T&eacute;rminos y condiciones de uso (en adelante "T&eacute;rminos y condiciones") antes de utilizar este sitio. Al acceder y utilizar los sitios web y materiales de Simulador Credito Corporation (en adelante "Simulador Credito"), usted reconoce y acepta cumplir con los siguientes T&eacute;rminos y condiciones de uso. Si no acepta estos T&eacute;rminos y condiciones, no utilice los sitios web de Simulador Credito ni descargue ning&uacute;n material.</p>
+                                      <p><b>Alcance de los T&eacute;rminos y condiciones</b></p>
+                                      <p>Estos T&eacute;rminos y condiciones de uso se aplican a todos los sitios web de Simulador Credito, ya sea que se trate de un sitio patrocinado, administrado por intermedio de un tercero o alojado por un tercero (en adelante los "Sitios web"). Asimismo, estos T&eacute;rminos y condiciones se aplican a los recursos y las herramientas que se proporcionan a trav&eacute;s de los Sitios web de Simulador Credito, como por ejemplo herramientas de desarrollo, zonas de descarga, zonas de b&uacute;squeda, foros comunitarios, salas de chat, blogs, sitios de uso compartido e informaci&oacuten sobre productos. Estos T&eacute;rminos y condiciones se aplican a todos los Sitios web de Simulador Credito, tanto en el presente como en el futuro. En adelante, todos los materiales amparados por estos T&eacute;rminos y condiciones de uso se denominar&aacute;n los "Materiales".Simulador Credito se reserva el derecho de establecer T&eacute;rminos y condiciones de servicio espec&iacute;ficos de actividades o programas, por ejemplo cuando Simulador Credito proporciona Materiales interactivos y/o habilita contenido generado por el usuario. En esos casos, en la medida en que estos T&eacute;rminos y condiciones no entren en conflicto con los T&eacute;rminos y condiciones de servicio espec&iacute;ficos del programa, los primeros mantendr&aacute;n su plena vigencia.</p>
+                                      <p><b>Seguridad y privacidad</b></p>
+                                      <p>Informaci&oacuten personal: La informaci&oacuten que se env&iacute;e a Simulador Credito a trav&eacute;s de formularios de los Sitios web o Materiales se regir&aacute; de conformidad con la Pol&iacute;tica de privacidad de Simulador Credito. Cuenta, contrase&ntilde;a y seguridad de miembros: Simulador Credito podr&aacute;, peri&oacutedicamente, alojar un sitio espec&iacute;fico de un programa o una actividad que requiere que el usuario cree una cuenta de miembro y/o una contrase&ntilde;a para acceder al sitio. En esos casos, es su responsabilidad mantener la confidencialidad de la cuenta y contrase&ntilde;a. Asimismo, usted es totalmente responsable de todas y cada una de las actividades que se lleven a cabo en su cuenta. Usted acepta notificar a Simulador Credito de inmediato cualquier uso no autorizado de su cuenta o cualquier otra violaci&oacuten a la seguridad que se produzca en ella. Simulador Credito no responder&aacute; de ninguna p&eacute;rdida en la que usted incurra a consecuencia del uso de su contrase&ntilde;a o cuenta por parte de un tercero con su conocimiento o sin &eacute;l. No obstante, usted podr&iacute;a ser responsabilizado de las p&eacute;rdidas que sufra Simulador Credito o un tercero a causa del uso de su cuenta o contrase&ntilde;a por parte de otra persona. Est&aacute; prohibido el uso de la cuenta de otro usuario en cualquier momento, sin la autorizaci&oacuten del titular de la cuenta.</p>
+                                      <p><b>T&eacute;rminos y condiciones de uso</b></p>
+                                      <p>Todo software Simulador Credito que se ofrece para descargar desde los Sitios web ("Software") son obras protegidas por los derechos de autor de Simulador Credito y/o sus proveedores. El uso del software se rige de conformidad con los t&eacute;rminos y condiciones del contrato de licencia de usuario final, si lo hubiere, que acompa&ntilde;a o se incluye con el software (el "Contrato de licencia"). El usuario final no podr&aacute; instalar el software que incluye o se acompa&ntilde;a de un Contrato de licencia, a menos que acepte primero los t&eacute;rminos y condiciones de dicho contrato. El software se ofrece para descarga y uso exclusivo por parte de los usuarios finales conforme al Contrato de licencia. La reproducci&oacuten o redistribuci&oacuten del Software no conforme al Contrato de licencia est&aacute; expresamente prohibida por la ley, y puede ser pasible de graves sanciones civiles y penales. Los infractores ser&aacute;n perseguidos con todo el peso de la ley. SIN PERJUICIO DE LO ANTERIOR, QUEDA EXPRESAMENTE PROHIBIDO EL COPIADO O LA REPRODUCCI&Oacute;N DE SOFTWARE INTEL A CUALQUIER OTRO SERVIDOR O UBICACI&Oacute;N PARA SU POSTERIOR REPRODUCCI&Oacute;N O REDISTRIBUCI&Oacute;N, A MENOS QUE LO AUTORICE EXPRESAMENTE EL CONTRATO DE LICENCIA QUE ACOMPA&Ntilde;A AL SOFTWARE. LAS &Uacute;NICAS GARANT&Iacute;AS QUE SE OFRECEN DEL SOFTWARE, SI LAS HUBIERE, SON LAS ESTIPULADAS DE CONFORMIDAD CON LOS T&Eacute;RMINOS Y CONDICIONES DEL CONTRATO DE LICENCIA. SALVO QUE SE GARANTICE EN EL CONTRATO DE LICENCIA, POR EL PRESENTE INTEL RECHAZA TODAS LAS GARANT&Iacute;AS Y CONDICIONES RESPECTO DEL SOFWARE, AS&Iacute; COMO TODAS LAS GARANT&Iacute;AS Y CONDICIONES DE COMERCIABILIDAD, YA SEAN EXPRESAS, IMPL&Iacute;CITAS O LEGALES, O DE APTITUD PARA UN FIN DETERMINADO, T&Iacute;TULO Y FALTA DE INFRACCI&Oacute;N. PARA SU COMODIDAD, INTEL PUEDE OFRECER COMO PARTE DEL SITIO WEB O EN SUS PRODUCTOS DE SOFTWARE, HERRAMIENTAS Y UTILIDADES PARA SU USO Y/O DESCARGA. INTEL NO GARANTIZA DE NING&Uacute;N MODO LA PRECISI&Oacute;N DE LOS RESULTADOS QUE SE OBTENGAN AL UTILIZAR ESAS HERRAMIENTAS Y UTILIDADES. SOLICITAMOS RESPETAR LOS DERECHOS DE PROPIEDAD INTELECTUAL DE TERCEROS AL UTILIZAR LAS HERRAMIENTAS Y UTILIDADES QUE SE OFRECEN EN LOS SERVICIOS O EN LOS PRODUCTOS DE SOFTWARE DE INTEL.</p>
+                                      <p>Indemnizaci&oacuten: Usted acepta indemnizar y mantener indemne a Simulador Credito y sus funcionarios, agentes, empleados, socios y licenciantes frente a cualquier reclamo o demanda, as&iacute; como los honorarios razonables de abogados, que promueva cualquier tercero a causa del contenido que usted env&iacute;a, publica, transmite o proporciona de otro modo a trav&eacute;s de los Sitios web o Materiales, su uso de los mismos, su conexi&oacuten a los mismos, su infracci&oacuten de estos T&eacute;rminos y condiciones de uso o los espec&iacute;ficos de un sitio, o la infracci&oacuten de los derechos de un tercero..</p>
+                              </div>
+                              <div class="modal-footer">
+                                      <button type="button" class="btn btn-primary" data-dismiss="modal">Acepto</button>
+                              </div>
+                      </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+      
+	
+    <!--<form action="" method="post">
+        {% csrf_token %}
+        {{ baseform }}
+        {{ form }}
+        <input type="submit" value="Ingresar" />
+    </form>-->
+{% endblock %}
+
+{% block script %}
+    <script>
+      $(function(){
+        $("#geocomplete").geocomplete({
+          map: ".map_canvas",
+          details: "form",
+          types: ["geocode", "establishment"],
+          });
+        $("#find_address").click(function(){
+          $("#geocomplete").trigger("geocode");
+        });
+      });
+    </script>
+{% endblock %}

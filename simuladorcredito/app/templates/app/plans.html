@@ -1,0 +1,56 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+Planes de pago creados
+{% endblock %}
+
+{% block content %}
+    </p>
+        <h2>Mi URL publica </h2> 
+        <small>Esta es la URL para compartir a sus clientes</small>
+        <br><a href="http://127.0.0.1:8000/app/public/{{ profile.slug }}">http://127.0.0.1:8000/app/public/{{ profile.slug }}</a></br>
+    </p>
+    <h2>Lineas de credito:</h2>
+    <div class="row">
+    {% if lineas %} 
+        {% for i in lineas %}
+        <div class="col-md-6">
+            <br><a href="{% url 'update_credit_line' credit_line_id=i.slug %}">{{ i.slug }}</a> - <a href="{% url 'delete_credit_line' credit_line_id=i.slug %}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+        </div>
+        {% endfor %}
+    {% else %}
+        No Existe ningun record
+    {% endif %}
+    </div>
+    <p>
+    <br><a href="{% url 'create_credit_line' %}" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> Agregar Linea Credito</a>
+    </p>
+    <h2>Planes de pago Creados:</h2>
+    <div class="row">
+    {% if objects %} 
+		{% for i in objects %}
+            <div class="col-md-6">
+   			  <a href="./{{ i.slug }}">CC: {{ i.identification_number }}, Fecha: {{ i.generation_date }}, Valor: {{ i.principal }}</a></br>
+            </div>
+		{% endfor %}
+	{% else %}
+		No Existe ningun record
+    {% endif %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if objects.has_previous %}
+                    <a href="?page={{ objects.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ objects.number }} of {{ objects.paginator.num_pages }}.
+                </span>
+
+                {% if objects.has_next %}
+                    <a href="?page={{ objects.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    </p>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+	Dashboard
+{% endblock %}
+
+{% block content %}
+	{% if errors %}
+        {{ errors }}
+    {% endif %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Enviar" />
+    </form>
+{% endblock %}

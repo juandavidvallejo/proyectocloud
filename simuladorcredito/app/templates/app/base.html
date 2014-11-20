@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS for the 'Business Frontpage' Template -->
+    <style>
+        body {
+          margin-top: 50px; /* 50px is the height of the navbar - change this if the navbarn height changes */
+        }
+        /* change the URL to a picture of your choice - the higher quality the better! */
+        .business-header {
+          height: 400px;
+          background: url(http://placehold.it/1920x400) center center no-repeat;
+          background-size: cover;
+        }
+        /* adjust the color and text shadow to optimize legibility once you have an image set - you can also change the vertical positioning if desired  */
+        .tagline {
+          color: #fff;
+          text-shadow: 0 0 10px #000;
+        }
+        footer {
+          margin: 50px 0;
+        }
+    </style>
+    {% block css %}{% endblock %}
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'private' %}">Index</a>
+                </div>
+    
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="{% url 'private' %}"><span class="glyphicon glyphicon-home"></span>Dashboard</a></li>
+                        </li>
+                        <!--<li><a href="#"><span class="glyphicon glyphicon-plus"></span>Agregar Linea Credito</a></li>-->
+                        <!--<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>Agregar Evento</a></li>-->
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                        class="glyphicon glyphicon-user"></span>{{ user.username }} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><span class="glyphicon glyphicon-user"></span>Perfil</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Ajustes</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'user_logout' %}"><span class="glyphicon glyphicon-off"></span>Cerrar Sesion</a></li>
+                        </ul>
+                    </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
+    {% else %}
+        <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'index' %}">Simulador de Credito</a>
+                </div>
+    
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'signup' %}">Signup</a>
+                        </li>
+                        <li><a href="{% url 'user_login' %}">Login</a>
+                        </li>
+                        <!--<li><a href="#contact">Contact</a> -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
+    {% endif %}
+    <div class="container">
+        {% block content %}{% endblock %}
+        <hr>
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Company 2013</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- /container -->
+
+    <!-- JavaScript -->
+    <!--<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>-->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!--<script src="//cdn.jsdelivr.net/jquery.geocomplete/1.5.1/jquery.geocomplete.min.js"></script>-->
+    {% block script %}{% endblock %}
+
+</body>
+</html>

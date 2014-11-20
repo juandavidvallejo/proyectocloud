@@ -1,0 +1,18 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+	Dashboard
+{% endblock %}
+
+{% block content %}
+<p>
+Seleccione una de las lineas de credito que desee de esta pyme:
+	{% if lineas %} 
+        {% for i in lineas %}
+            <br><a href="./{{ i.slug }}">Nombre: {{ i.credit_line_name }} - Interes: {{ i.interest_rate }}%</a>
+        {% endfor %}
+    {% else %}
+        No Existe ningun record
+    {% endif %}
+</p>
+{% endblock %}

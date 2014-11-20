@@ -1,0 +1,4 @@
+Django==1.5.8
+boto==2.34.0
+gunicorn==19.1.1
+virtualenv==1.11.6

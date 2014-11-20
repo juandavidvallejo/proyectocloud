@@ -1,0 +1,45 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+Entrar a mi cuenta
+{% endblock %}
+
+{% block content %}
+    <hr>
+
+        <div class="row" style="margin-top:20px">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                        <form role="form" action="" method="post">
+                            {% csrf_token %}
+                                <fieldset>
+                                        <h2>Porfavor Ingrese Sus Datos</h2>
+                                        <hr class="colorgraph">
+                                            {% if errors %}
+                                                <h3>{{ errors }}!</h3>
+                                            {% endif %}
+                                        <div class="form-group">
+                                            <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" class="form-control input-lg" placeholder="Mi Usuario">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" class="form-control input-lg" placeholder="Mi Contrase&ntilde;a">
+                                        </div>
+                                        <span class="checkbox">
+                                              <label class="checkbox">
+                                                      <input type="checkbox" value="remember-me">Remember Me
+                                              </label>
+                                              <a href="#" class="btn btn-link pull-right">Olvido su Usuario o su Contrase&ntilde;a?</a>
+                                        </span>
+                                        <hr class="colorgraph">
+                                        <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <input type="submit" class="btn btn-lg btn-success btn-block" value="Ingresar">
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <a href="{% url 'signup' %}" class="btn btn-lg btn-primary btn-block">Crear Cuenta</a>
+                                                </div>
+                                        </div>
+                                </fieldset>
+                        </form>
+                </div>
+        </div>
+{% endblock %}

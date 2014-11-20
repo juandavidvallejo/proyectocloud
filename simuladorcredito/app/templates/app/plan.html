@@ -1,0 +1,68 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+Planes de pago creados
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="http://www.gyplan.com/files/main.js"></script><style type="text/css"></style>
+<script type="text/javascript" src="http://www.gyplan.com/files/amofran_es.js"></script>
+<script type="text/javascript">
+  window.onload = check;
+</script>
+{% endblock %}
+
+{% block content %}
+    
+    </p>
+    <h2>Plan de pago #{{object.slug}}</h2>
+    {% if object %} 
+		<br><b>Cedula: {{object.identification_number}}</b>
+        <br><b>Fecha Nacimiento: {{object.birth_date}}</b>
+        <br><b>Duracion Credito: {{object.duration_months}}</b>
+        <br><b>Valor Credito: {{object.principal}}</b>
+        {% if object.state %}
+            <div id="main">
+                <form name="calcform" action="">
+                    <table summary="" align="center" width="90%" border="0">
+                        <tbody><tr><td bgcolor="#998E8E" colspan="2" align="center"><font face="Verdana, Arial" color="#ffffff" size="4">
+                        <strong>&nbsp;Amortización por el sistema francés</strong></font></td></tr>
+                        <tr><th bgcolor="#998E8E" align="center"><font size="3" color="#ffffff">Descripción</font></th>
+                        <th bgcolor="#998E8E" align="center"><font size="3" color="#ffffff">Datos</font></th></tr>
+                        <tr><td bgcolor="#eeeee0" align="left">&nbsp;Principal:</td>
+                        <td bgcolor="#eeeee0" align="right"><input type="text" name="amt" size="16" value="{{object.principal}}" onchange="value= preFormat(value,2,0)" readonly></td></tr>
+                        <tr><td bgcolor="#eeeee0" align="left">&nbsp;Plazo en meses:</td>
+                        <td bgcolor="#eeeee0" align="right"><input type="text" name="pay" size="16" value="{{object.duration_months}}" readonly></td></tr>
+                        <tr><td bgcolor="#eeeee0" align="left">&nbsp;Tasa de interés mensual:<small> (ex. 1.5% = 1.5)</small></td>
+                        <td bgcolor="#eeeee0" align="right"><input type="text" name="rate" size="16" value="{{ interes }}" readonly></td></tr>
+                        <tr><td bgcolor="#eeeee0" colspan="2" align="center">Resultados</td></tr>
+                        <tr><td bgcolor="#eeeee0" align="left">&nbsp;Pago mensual:</td>
+                        <td bgcolor="#eeeee0" align="right">
+                        <input type="text" name="pmt" size="16" readonly="readonly"></td></tr>
+                        <tr><td bgcolor="#eeeee0" align="left">&nbsp;Total intereses</td><td bgcolor="#eeeee0" align="right">
+                        <input type="text" name="Totint" size="16" readonly="readonly"></td></tr>
+                        <tr><td bgcolor="#eeeee0" align="left">&nbsp;Total pagos</td>
+                        <td bgcolor="#eeeee0" align="right"><input type="text" name="Totpay" size="16" readonly="readonly"></td></tr>   
+                        <tr><!-- <td bgcolor="#eeeee0" align="center"><input type="button" class="button" onclick="return check()" value="Calcular"></td> -->
+                        <!-- <td bgcolor="#eeeee0" align="center"><input type="reset" value="Reset"></td> --></tr>
+                        <tr><td bgcolor="#998E8E" colspan="2" align="center"><font face="Verdana, Arial" color="#ffffff" size="4">
+                        <strong>&nbsp;Tabla de amortización</strong><br></font></td></tr>   
+                        </tbody>
+                    </table>
+                </form>
+                <div class="loan" id="det"></div>
+                <p class="nprint" align="left"><small><strong>Nota: </strong>La precisión de la calculadora y su aplicabilidad a los casos
+                particulares no es garantizada. La asistencia, personalizada, por profesional cualificado es recomendada.</small></p>
+                <br>
+            </div>
+            <h3>Indicador Riesgo: {{object.risk_indicator}}</h3>
+        {% else %}
+            <h3> En proceso...</h3>
+        {% endif %}
+	{% else %}
+		No Existe ningun record
+    {% endif %}
+    </p>
+    <p>
+    <input type="button" value="Actualizar Pagina" onClick="window.location.reload()">
+{% endblock %}
